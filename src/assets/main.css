@@ -1,0 +1,36 @@
+@import './base.css';
+
+#app {
+  --max-width: 1420px;
+  --max-body-height: calc(100vh - 5rem);
+  max-width: var(--max-width);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 5rem calc(100vh - 5rem);
+  background: rgba(211, 233, 241, 0.09);
+  /*padding: 2rem;*/
+  margin: 0 auto;
+  font-weight: normal;
+}
+
+a,
+.btn {
+  width: 12rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, rgb(207, 234, 182) 0%, rgba(195, 238, 180, 0.95) 17%, rgb(129, 236, 147) 91%);
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  color: hsl(190, 87%, 15%);
+  transition: 0.4s;
+  padding: 3px;
+}
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
