@@ -54,15 +54,18 @@ const empty: Ref<boolean> = ref(false)
 const router = useRouter()
 
 // Асинхронность для корректной работы спиннера, на случай указания больших значений
-const getData = async ():Promise<void> => {
+const getData = (): void => {
     if (rows.value && columns.value) {
         empty.value = false
         spinner.value = true
         // Math.trunc - валидация float
-        await getTableData(Math.trunc(rows.value), Math.trunc(columns.value)).then((resp:RespObject[]): void => {
+        getTableData(Math.trunc(rows.value), Math.trunc(columns.value)).then((resp:RespObject[]): void => {
             spinner.value = false
             tableData.value = resp
             router.push('/table')
+        }).catch((e) => {
+            spinner.value = false
+            console.error(e)
         })
     } else empty.value = true
 }

@@ -5,7 +5,7 @@
              ref="tableEl"
         >
             <div class="table__header">
-                <div v-for="(title, idx) in Object.keys(dataTable[0])"
+                <div v-for="(title, idx) in titlesTable"
                      v-once
                      :key="idx"
                      class="table__cell table__title">
@@ -37,7 +37,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import {onMounted, ref, inject, Ref, UnwrapRef, shallowRef} from "vue";
+import {onMounted, ref, inject, Ref, UnwrapRef, shallowRef, computed} from "vue";
 import {RespObject} from "@/interfaces/helpers";
 import {useRouter} from "vue-router";
 
@@ -45,10 +45,11 @@ const router = useRouter()
 const rowsEl: Ref<HTMLDivElement[]> = ref(null)
 
 const dataTableInject = inject('tableData')?.value
-if (dataTableInject === undefined) router.push('/')
+if (!dataTableInject) router.push('/')
 
 const dataTableRaw: RespObject[] = JSON.parse(JSON.stringify(dataTableInject || []))
 const dataTable: Ref<UnwrapRef<RespObject[]>> = shallowRef(dataTableRaw.splice(0, 20))
+const titlesTable = computed(() => Object.keys(dataTable.value[0]))
 
 const callbackObserver = (element: Element[IntersectionObserverEntry], observer: IntersectionObserver): void => {
     const el = element[0]
